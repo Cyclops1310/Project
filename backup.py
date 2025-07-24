@@ -16,7 +16,7 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 print(f"✅ Device set to use: {device}")
 
 model = AutoModelForCausalLM.from_pretrained(model_id, torch_dtype=torch.bfloat16).to(device)
-
+memory = ConversationBufferMemory()
 pipe = pipeline(
     "text-generation",
     model=model,
@@ -94,7 +94,7 @@ while True:
 
     # Build prompt from full history
     prompt = build_prompt(chat_history)
-    print("\n🔍 Prompt to model:\n", prompt)  # DEBUG — optional
+    print("\n Prompt to model:\n", prompt)  # DEBUG — optional
 
     try:
         result = pipe(prompt)
@@ -106,4 +106,4 @@ while True:
         chat_history.append({"role": "assistant", "content": bot_reply})
         save_chat()
     except Exception as e:
-        print(f"⚠️ Error: {e}")
+        print(f"⚠ Error: {e}")
