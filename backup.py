@@ -3,6 +3,9 @@ import json
 from datetime import datetime
 import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM, pipeline
+from langchain.schema import AIMessage, HumanMessage
+from langchain.memory import ConversationBufferMemory
+from langchain.chains import ConversationChain
 
 # === Load model ===
 model_id = "meta-llama/Llama-3.2-1B-Instruct"
